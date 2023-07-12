@@ -18,11 +18,11 @@ exports.view = (req, res) => {
 exports.find = (req, res) => {
   let searchTerm = req.body.search;
   // User the connection
-  connection.query('SELECT * FROM user WHERE first_name LIKE ? OR last_name LIKE ?', ['%' + searchTerm + '%', '%' + searchTerm + '%'], (err, rows) => {
+  connection.query('SELECT * FROM user WHERE (first_name LIKE ? OR last_name LIKE ? OR email like ? OR phone like ?)  AND status = ? ', ['%' + searchTerm + '%', '%' + searchTerm + '%' , '%' + searchTerm + '%' , '%' + searchTerm + '%', 'a'], (err, rows) => {
     if (!err) {
-      res.render('user/home', { rows });
+       res.render('user/home', { rows });
     } else {
-      console.log(err);
+      console.log(err); 
     }
   });
 }
